@@ -31,12 +31,8 @@ public class PaymentDaoImpl implements PaymentDao {
     @Transactional("omsTransactionManager")
     public int addPayment(PaymentDTO paymentDTO) {
         try {
-            Session session = entityManager.unwrap(Session.class);
-
             Payment payment = new Payment(Timestamp.valueOf(LocalDateTime.now()),paymentDTO.getPaymentStatus(),paymentDTO.getOrderId(),paymentDTO.getUserId(),BigDecimal.ONE);
-
-            session.save(payment);
-            System.out.println(payment.getPaymentId());
+            entityManager.persist(payment);
             return payment.getPaymentId();
 
         } catch (Exception e) {

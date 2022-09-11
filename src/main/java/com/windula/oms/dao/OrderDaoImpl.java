@@ -3,7 +3,7 @@ package com.windula.oms.dao;
 import com.windula.oms.dto.OrderDTO;
 import com.windula.oms.exception.DatabaseException;
 import com.windula.oms.exception.ExceptionEnum;
-import com.windula.oms.model.Order;
+import com.windula.oms.model.Orders;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -33,12 +32,10 @@ public class OrderDaoImpl implements OrderDao {
     public int addOrder(OrderDTO orderDTO) {
 
         try {
-            Session session = entityManager.unwrap(Session.class);
-
-            Order order = new Order(BigDecimal.TEN, Timestamp.valueOf(LocalDateTime.now()), orderDTO.getOrderStatus(), orderDTO.getUserId(), orderDTO.getDeliveryId(), orderDTO.getInvoiceId());
-            System.out.println(order);
-            session.save(order);
-            return order.getOrderId();
+            Orders orders = new Orders(orderDTO.getOrderTotalPrice(),
+                    Timestamp.valueOf(LocalDateTime.now()), orderDTO.getOrderStatus(),orderDTO.getUserId(),orderDTO.getDeliveryId(),orderDTO.getInvoiceId());
+            entityManager.persist(orders);
+            return orders.getOrderId();
 
         } catch (Exception e) {
             LOGGER.error("error order item insertion failed", e);

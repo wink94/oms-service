@@ -1,8 +1,13 @@
 package com.windula.oms.service;
 
-import com.windula.oms.dao.*;
+import com.windula.oms.dao.DeliveryDao;
+import com.windula.oms.dao.OrderDao;
+import com.windula.oms.dao.OrderItemDao;
+import com.windula.oms.dao.PaymentDao;
 import com.windula.oms.dto.OrderItemDTO;
 import com.windula.oms.dto.OrderRequestDTO;
+import com.windula.oms.exception.ApiException;
+import com.windula.oms.exception.ExceptionEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,31 +36,28 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional("omsTransactionManager")
-    public void addOrder(OrderRequestDTO orderRequestDTO) {
+    public int addOrder(OrderRequestDTO orderRequestDTO) {
 
         try {
             int deliveryId = deliveryDao.addDelivery(orderRequestDTO.getDelivery());
-            System.out.println("Delivery "+deliveryId);
-            if (deliveryId > 0) {
-                orderRequestDTO.getOrder().setDeliveryId(deliveryId);
-                orderRequestDTO.getOrder().setOrderTimestamp(Timestamp.valueOf(LocalDateTime.now())); // time zone time stamp is the correct approach
-                int orderId = orderDao.addOrder(orderRequestDTO.getOrder());
-                System.out.println("orderId "+orderId);
-                for (OrderItemDTO orderItemDTO : orderRequestDTO.getOrderItems()) {
-                    orderItemDTO.setOrderId(orderId);
-                }
 
-                orderItemDao.addOrderItems(orderRequestDTO.getOrderItems());
+            orderRequestDTO.getOrder().setDeliveryId(deliveryId);
+            orderRequestDTO.getOrder().setOrderTimestamp(Timestamp.valueOf(LocalDateTime.now())); // time zone time stamp is the correct approach
+            int orderId = orderDao.addOrder(orderRequestDTO.getOrder());
 
-                orderRequestDTO.getPayment().setOrderId(orderId);
-                System.out.println("payment "+orderRequestDTO.getPayment().getPaymentAmount());
-                int paymentId = paymentDao.addPayment(orderRequestDTO.getPayment());
 
-                System.out.println("paymentId "+paymentId);
-
+            for (OrderItemDTO orderItemDTO : orderRequestDTO.getOrderItems()) {
+                orderItemDTO.setOrderId(orderId);
             }
+            orderItemDao.addOrderItems(orderRequestDTO.getOrderItems());
+
+            orderRequestDTO.getPayment().setOrderId(orderId);
+
+            return paymentDao.addPayment(orderRequestDTO.getPayment());
+
         } catch (Exception e) {
-            LOGGER.error("error", e);
+            LOGGER.error("Order insertion failure ", e);
+            throw new ApiException(ExceptionEnum.ORDER_INSERTION_FAILURE);
         }
     }
 }

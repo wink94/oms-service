@@ -6,6 +6,7 @@ import com.windula.oms.dto.OrderRequestDTO;
 import com.windula.oms.dto.ProductRequest;
 import com.windula.oms.service.OrderService;
 import com.windula.oms.service.PaymentService;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static com.windula.oms.common.Constants.CORRELATION_ID;
 import static com.windula.oms.common.Constants.HEADER_KEY_CORRELATION_ID;
 
 @RestController
@@ -29,8 +31,8 @@ public class OrderController {
     @PostMapping(value = "/order", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseResponse> addOrder( @RequestBody OrderRequestDTO order, @RequestHeader(name = HEADER_KEY_CORRELATION_ID, required = false) String correlationId){
         orderService.addOrder(order);
-        HttpStatus responseStatus = HttpStatus.OK;
         HttpHeaders headers = new HttpHeaders();
+        headers.add(HEADER_KEY_CORRELATION_ID, MDC.get(CORRELATION_ID));
         return new ResponseEntity<>(null, headers, HttpStatus.OK);
     }
 }

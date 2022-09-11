@@ -3,13 +3,14 @@ package com.windula.oms.exception;
 public enum ExceptionEnum {
 
 
-    DATABASE_PROPERTIES_FETCH(101,"Database properties fetch failed"),
+    DATABASE_PROPERTIES_FETCH(101, "Database properties fetch failed"),
     DATABASE_CONNECTION_FAILURE(102, "Database connection failed"),
 
-    INVALID_JSON(199, "Invalid JSON",null),
-    UNEXPECTED_EXCEPTION(  198,"Internal Server Error","Error"),
+    INVALID_JSON(199, "Invalid JSON", null),
+    UNEXPECTED_EXCEPTION(198, "Internal Server Error", "Error"),
 
-    BAD_REQUEST_EXCEPTION(  199,"Bad Request","Error"),
+    ORDER_INSERTION_FAILURE(105, "Order insertion failure"),
+    BAD_REQUEST_EXCEPTION(199, "Bad Request", "Error"),
 
     DATABASE_QUERY_FAILURE(103, "Database query failed");
 

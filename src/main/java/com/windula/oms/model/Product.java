@@ -1,5 +1,6 @@
 package com.windula.oms.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -31,4 +32,29 @@ public class Product {
     private BigDecimal productSoldPrice;
     @Column(name = "product_batch_price", precision = 10, scale = 4)
     private BigDecimal productBatchPrice;
+
+    @Column(name = "active_status")
+    private int activeStatus;
+
+    public Product(String productName, String productType, String productMeasureUnit, Float inStockQuantity, BigDecimal productSoldPrice, BigDecimal productBatchPrice) {
+        this.productName = productName;
+        this.productType = productType;
+        this.productMeasureUnit = productMeasureUnit;
+        this.inStockQuantity = inStockQuantity;
+        this.productSoldPrice = productSoldPrice;
+        this.productBatchPrice = productBatchPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productType='" + productType + '\'' +
+                ", productMeasureUnit='" + productMeasureUnit + '\'' +
+                ", inStockQuantity=" + inStockQuantity +
+                ", productSoldPrice=" + productSoldPrice +
+                ", productBatchPrice=" + productBatchPrice +
+                '}';
+    }
 }

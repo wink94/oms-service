@@ -5,7 +5,7 @@ import java.util.List;
 public class Constants {
 
     public static final String VERSION = "1.0.0";
-    public static final String CORRELATION_ID_LOG_VAR_NAME = "correlationId";
+    public static final String CORRELATION_ID = "correlationId";
     public static final String HEADER_KEY_CORRELATION_ID = "X-Syy-Correlation-Id";
 
     public static class SystemStatus {

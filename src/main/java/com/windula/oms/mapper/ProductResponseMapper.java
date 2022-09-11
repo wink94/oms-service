@@ -22,4 +22,15 @@ public class ProductResponseMapper {
         return baseResponse;
     }
 
+    public BaseResponse updateProductResponse(int id){
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.addRequestStatuses(200,"Success","Successfully updated product id "+id);
+        return baseResponse;
+    }
+
+    public BaseResponse deleteProductResponse(int id){
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.addRequestStatuses(200,"Success","Successfully deleted product id "+id);
+        return baseResponse;
+    }
 }

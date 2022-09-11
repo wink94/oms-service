@@ -13,10 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 @Repository
@@ -137,12 +134,31 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public void updateProduct(Product product) {
+    public int updateProduct(Product product) {
 
         try {
-            entityManager.merge(product);
+            return entityManager.merge(product).getProductId();
         } catch (Exception e) {
             LOGGER.error("error product update failed", e);
+            throw new DatabaseException(ExceptionEnum.DATABASE_QUERY_FAILURE, e);
+        }
+    }
+
+    @Override
+    public int deleteProduct(int productId) {
+        try {
+
+            final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+            final CriteriaUpdate<Product> query = cb.createCriteriaUpdate(Product.class);
+            final Root<Product> productRoot = query.from(Product.class);
+
+            Predicate predicate1 = cb.equal(productRoot.get("productId"), productId);
+
+            query.set(productRoot.get("activeStatus"),0).where(predicate1);
+            return entityManager.createQuery(query).executeUpdate();
+
+        } catch (Exception e) {
+            LOGGER.error("error product insertion failed", e);
             throw new DatabaseException(ExceptionEnum.DATABASE_QUERY_FAILURE, e);
         }
     }

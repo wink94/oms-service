@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
-import static com.windula.oms.common.Constants.CORRELATION_ID_LOG_VAR_NAME;
+import static com.windula.oms.common.Constants.CORRELATION_ID;
 import static com.windula.oms.common.Constants.HEADER_KEY_CORRELATION_ID;
 
 public class CorrelationInterceptor implements HandlerInterceptor {
@@ -23,7 +23,7 @@ public class CorrelationInterceptor implements HandlerInterceptor {
             GenerateCorrelationId generateCorrelationId = ((HandlerMethod) handler).getMethodAnnotation(GenerateCorrelationId.class);
 
             String correlationId = request.getHeader(HEADER_KEY_CORRELATION_ID);
-            MDC.put(CORRELATION_ID_LOG_VAR_NAME, correlationId);
+            MDC.put(CORRELATION_ID, correlationId);
 
             if (generateCorrelationId != null && !StringUtils.hasLength(correlationId)) {
                 /*
@@ -31,7 +31,7 @@ public class CorrelationInterceptor implements HandlerInterceptor {
                 generate a unique id manually
                  */
                 correlationId = generateUniqueCorrelationId();
-                MDC.put(CORRELATION_ID_LOG_VAR_NAME, correlationId);
+                MDC.put(CORRELATION_ID, correlationId);
             }
         }
         return true;
@@ -40,7 +40,7 @@ public class CorrelationInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(final HttpServletRequest request, final HttpServletResponse response,
                                 final Object handler, final Exception ex) {
-        MDC.remove(CORRELATION_ID_LOG_VAR_NAME);
+        MDC.remove(CORRELATION_ID);
     }
 
     private String generateUniqueCorrelationId() {

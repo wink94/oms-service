@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.windula.oms.common.Constants.VERSION;
 
 @RestController
-@RequestMapping({"/oms/healthcheck","/oms/v1/healthcheck", "/healthcheck"})
+@RequestMapping({"/v1/oms/healthcheck","/oms/healthcheck", "/healthcheck"})
 public class HealthController {
 
-    @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getHealthCheck() {
 
         if (SystemStatusProvider.isSystemActive()) {

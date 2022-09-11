@@ -27,12 +27,10 @@ public class DeliveryDaoImpl implements DeliveryDao {
     @Transactional("omsTransactionManager")
     public int addDelivery(DeliveryDTO deliveryDTO) {
         try {
-            Session session = entityManager.unwrap(Session.class);
 
             Delivery delivery = new Delivery(deliveryDTO.getDeliveryDate(), deliveryDTO.getUserAddressId(), deliveryDTO.getDeliveryStatus());
 
-            session.save(delivery);
-
+            entityManager.persist(delivery);
             return delivery.getDeliveryId();
 
         } catch (Exception e) {

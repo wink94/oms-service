@@ -29,10 +29,9 @@ public class OrderItemDaoImpl implements OrderItemDao{
     public int addOrderItems(List<OrderItemDTO> orderItemList){
         int recordCount = 0;
         try {
-            Session session = entityManager.unwrap(Session.class);
             for (OrderItemDTO orderItemDTO : orderItemList) {
                 OrderItem orderItem = new OrderItem( orderItemDTO.getQuantity(),orderItemDTO.getProductId(),orderItemDTO.getOrderId(),orderItemDTO.getOrderProductTotalPrice(),1);
-                session.save(orderItem);
+                entityManager.persist(orderItem);
                 recordCount+=1;
             }
             return recordCount;

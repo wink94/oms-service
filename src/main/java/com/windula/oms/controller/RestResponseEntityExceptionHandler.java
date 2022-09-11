@@ -8,30 +8,23 @@ import com.windula.oms.dto.StatusResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import static com.windula.oms.common.Constants.CORRELATION_ID_LOG_VAR_NAME;
+import static com.windula.oms.common.Constants.CORRELATION_ID;
 import static com.windula.oms.exception.ExceptionEnum.BAD_REQUEST_EXCEPTION;
 import static com.windula.oms.exception.ExceptionEnum.UNEXPECTED_EXCEPTION;
 
@@ -76,7 +69,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     private ResponseEntity<Object> handleBadRequestErrors(String errorMessages) {
         HttpHeaders headers = new HttpHeaders();
-        String correlationId = MDC.get(CORRELATION_ID_LOG_VAR_NAME);
+        String correlationId = MDC.get(CORRELATION_ID);
         headers.set(Constants.HEADER_KEY_CORRELATION_ID, correlationId);
         StatusResponse response = getRequestErrorResponse(BAD_REQUEST_EXCEPTION);
         response.setInfo(errorMessages);
@@ -85,7 +78,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     private ResponseEntity<Object> handleInternalServerErrors() {
         HttpStatus responseStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         HttpHeaders headers = new HttpHeaders();
-        String correlationId = MDC.get(CORRELATION_ID_LOG_VAR_NAME);
+        String correlationId = MDC.get(CORRELATION_ID);
         headers.set(Constants.HEADER_KEY_CORRELATION_ID, correlationId);
         StatusResponse response = getRequestErrorResponse(UNEXPECTED_EXCEPTION);
         return new ResponseEntity<>(response, headers, responseStatus);

@@ -24,7 +24,7 @@ public class OrderItem {
     private int orderId;
     @Column(name = "order_product_total_price", precision = 10, scale = 4)
     private BigDecimal orderProductTotalPrice;
-    @Column(name = "status")
+    @Column(name = "item_status")
     private int status;
 
     public OrderItem(BigDecimal quantity, int productId, int orderId, BigDecimal orderProductTotalPrice, int status) {
