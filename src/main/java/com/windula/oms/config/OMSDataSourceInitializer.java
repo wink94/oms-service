@@ -52,7 +52,7 @@ public class OMSDataSourceInitializer extends DataSourceInitializer{
 
         } catch (NullPointerException npe) {
 
-            LOGGER.error("error: OMSDataSourceInitializer database SSM parameters fetch failed", npe);
+            LOGGER.error("error: OMSDataSourceInitializer database parameters fetch failed", npe);
             throw new ConfigurationException(ExceptionEnum.DATABASE_PROPERTIES_FETCH);
         }
 
