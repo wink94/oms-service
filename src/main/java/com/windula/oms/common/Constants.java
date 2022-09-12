@@ -33,7 +33,7 @@ public class Constants {
         public static final String HEADER_NAME_MAX_AGE = "Access-Control-Max-Age";
         public static final String HEADER_NAME_ALLOW_HEADERS = "Access-Control-Allow-Headers";
         public static final String VALUE_ALLOW_ORIGIN = "*";
-        public static final String VALUE_ALLOW_METHODS = "POST, GET, OPTIONS, DELETE";
+        public static final String VALUE_ALLOW_METHODS = "POST, GET, OPTIONS, DELETE, PUT";
         public static final String VALUE_MAX_AGE = "3600";
         public static final String VALUE_ALLOW_HEADERS = "origin, content-type, accept, x-requested-with, clientid, traceFlag";
 

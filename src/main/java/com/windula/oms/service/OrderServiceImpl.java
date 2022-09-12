@@ -45,7 +45,6 @@ public class OrderServiceImpl implements OrderService {
             orderRequestDTO.getOrder().setOrderTimestamp(Timestamp.valueOf(LocalDateTime.now())); // time zone time stamp is the correct approach
             int orderId = orderDao.addOrder(orderRequestDTO.getOrder());
 
-
             for (OrderItemDTO orderItemDTO : orderRequestDTO.getOrderItems()) {
                 orderItemDTO.setOrderId(orderId);
             }

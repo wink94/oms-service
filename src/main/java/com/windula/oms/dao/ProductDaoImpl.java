@@ -134,6 +134,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    @Transactional("omsTransactionManager")
     public int updateProduct(Product product) {
 
         try {
@@ -145,6 +146,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    @Transactional("omsTransactionManager")
     public int deleteProduct(int productId) {
         try {
 

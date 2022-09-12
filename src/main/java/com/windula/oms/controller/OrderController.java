@@ -3,9 +3,7 @@ package com.windula.oms.controller;
 import com.windula.oms.annotation.GenerateCorrelationId;
 import com.windula.oms.dto.BaseResponse;
 import com.windula.oms.dto.OrderRequestDTO;
-import com.windula.oms.dto.ProductRequest;
 import com.windula.oms.service.OrderService;
-import com.windula.oms.service.PaymentService;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -13,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 import static com.windula.oms.common.Constants.CORRELATION_ID;
 import static com.windula.oms.common.Constants.HEADER_KEY_CORRELATION_ID;

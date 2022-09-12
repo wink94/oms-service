@@ -3,7 +3,6 @@ package com.windula.oms.controller;
 import com.windula.oms.annotation.GenerateCorrelationId;
 import com.windula.oms.dto.BaseResponse;
 import com.windula.oms.dto.PaymentDTO;
-import com.windula.oms.dto.ProductRequest;
 import com.windula.oms.mapper.PaymentResponseMapper;
 import com.windula.oms.service.PaymentService;
 import org.slf4j.MDC;
