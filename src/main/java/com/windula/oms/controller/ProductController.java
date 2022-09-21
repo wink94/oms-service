@@ -21,6 +21,9 @@ import javax.validation.Valid;
 import static com.windula.oms.common.Constants.CORRELATION_ID;
 import static com.windula.oms.common.Constants.HEADER_KEY_CORRELATION_ID;
 
+/**
+ * The type Product controller.
+ */
 @RestController
 @RequestMapping("/v1/oms")
 public class ProductController {
@@ -31,6 +34,11 @@ public class ProductController {
     @Autowired
     private ProductResponseMapper productResponseMapper;
 
+    /**
+     * Get all products response entity.
+     *
+     * @return the response entity
+     */
     @GenerateCorrelationId
     @GetMapping(value = "/product", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductResponse> getAllProducts(){
@@ -41,6 +49,12 @@ public class ProductController {
         return new ResponseEntity<>(productResponse, headers, responseStatus);
     }
 
+    /**
+     * Get products by name response entity.
+     *
+     * @param productName the product name
+     * @return the response entity
+     */
     @GenerateCorrelationId
     @GetMapping(value = "/product/{productName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductResponse> getProductsByName(@PathVariable String productName){
@@ -51,6 +65,13 @@ public class ProductController {
         return new ResponseEntity<>(productResponse, headers, responseStatus);
     }
 
+    /**
+     * Add products response entity.
+     *
+     * @param products      the products
+     * @param correlationId the correlation id
+     * @return the response entity
+     */
     @GenerateCorrelationId
     @PostMapping(value = "/product", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseResponse> addProducts(@Valid @RequestBody ProductRequest products, @RequestHeader(name = HEADER_KEY_CORRELATION_ID, required = false) String correlationId){
@@ -61,6 +82,13 @@ public class ProductController {
         return new ResponseEntity<>(productResponse, headers, responseStatus);
     }
 
+    /**
+     * Update products response entity.
+     *
+     * @param product       the product
+     * @param correlationId the correlation id
+     * @return response entity
+     */
     @GenerateCorrelationId
     @PutMapping(value = "/product", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseResponse> updateProducts(@Valid @RequestBody Product product, @RequestHeader(name = HEADER_KEY_CORRELATION_ID, required = false) String correlationId){
@@ -71,6 +99,13 @@ public class ProductController {
         return new ResponseEntity<>(productResponse, headers, responseStatus);
     }
 
+    /**
+     * Delete products response entity.
+     *
+     * @param productId     the product id
+     * @param correlationId the correlation id
+     * @return the response entity
+     */
     @GenerateCorrelationId
     @DeleteMapping(value = "/product/{productId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseResponse> deleteProducts( @PathVariable int productId, @RequestHeader(name = HEADER_KEY_CORRELATION_ID, required = false) String correlationId){

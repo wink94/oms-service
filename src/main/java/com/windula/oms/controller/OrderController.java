@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import static com.windula.oms.common.Constants.CORRELATION_ID;
 import static com.windula.oms.common.Constants.HEADER_KEY_CORRELATION_ID;
 
+/**
+ * The type Order controller.
+ */
 @RestController
 @RequestMapping("/v1/oms")
 public class OrderController {
@@ -23,6 +26,13 @@ public class OrderController {
     private OrderService orderService;
 
 
+    /**
+     * Add order response entity.
+     *
+     * @param order         the order
+     * @param correlationId the correlation id
+     * @return the response entity
+     */
     @GenerateCorrelationId
     @PostMapping(value = "/order", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseResponse> addOrder( @RequestBody OrderRequestDTO order, @RequestHeader(name = HEADER_KEY_CORRELATION_ID, required = false) String correlationId){

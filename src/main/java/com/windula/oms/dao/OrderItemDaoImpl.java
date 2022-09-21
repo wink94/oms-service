@@ -16,6 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
+
+/**
+ * The type Order item dao.
+ */
 @Repository
 public class OrderItemDaoImpl implements OrderItemDao{
 

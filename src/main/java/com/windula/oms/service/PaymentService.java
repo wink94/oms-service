@@ -6,8 +6,17 @@ import com.windula.oms.model.Product;
 
 import java.util.List;
 
+/**
+ * The interface Payment service.
+ */
 public interface PaymentService {
 
+    /**
+     * Add payment int.
+     *
+     * @param paymentDTO the payment dto
+     * @return the int
+     */
     int addPayment(PaymentDTO paymentDTO);
 
 

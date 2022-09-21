@@ -11,10 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static com.windula.oms.common.Constants.VERSION;
 
+/**
+ * The type Health controller.
+ */
 @RestController
 @RequestMapping({"/v1/oms/healthcheck","/oms/healthcheck", "/healthcheck"})
 public class HealthController {
 
+    /**
+     * Gets health check.
+     *
+     * @return the health check
+     */
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getHealthCheck() {
 

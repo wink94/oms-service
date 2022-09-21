@@ -16,6 +16,9 @@ import javax.persistence.EntityManager;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * The type Order dao.
+ */
 @Repository
 public class OrderDaoImpl implements OrderDao {
 

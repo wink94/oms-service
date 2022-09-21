@@ -18,6 +18,9 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * The type Payment dao.
+ */
 @Repository
 public class PaymentDaoImpl implements PaymentDao {
 

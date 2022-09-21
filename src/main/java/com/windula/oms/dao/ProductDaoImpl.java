@@ -16,6 +16,9 @@ import javax.persistence.Query;
 import javax.persistence.criteria.*;
 import java.util.List;
 
+/**
+ * The type Product dao.
+ */
 @Repository
 public class ProductDaoImpl implements ProductDao {
 

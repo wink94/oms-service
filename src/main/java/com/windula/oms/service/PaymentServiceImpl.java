@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * The type Payment service.
+ */
 @Service
 public class PaymentServiceImpl implements PaymentService {
 

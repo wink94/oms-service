@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+/**
+ * The type Delivery dao.
+ */
 @Repository
 public class DeliveryDaoImpl implements DeliveryDao {
 
